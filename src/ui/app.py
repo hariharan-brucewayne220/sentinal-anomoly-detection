@@ -606,7 +606,7 @@ elif page == "CI/CD & API Health":
     else:
         st.markdown(
             '<div class="card">'
-            f'<h4>API Status</h4><div class="kpi" style="font-size:20px; color:#f85149;">Offline</div>'
+            '<h4>API Status</h4><div class="kpi" style="font-size:20px; color:#f85149;">Offline</div>'
             '<div class="sub">Start: <code>uvicorn src.api.main:app --reload</code></div>'
             "</div>",
             unsafe_allow_html=True,

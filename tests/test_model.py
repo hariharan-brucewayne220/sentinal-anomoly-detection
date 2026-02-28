@@ -2,7 +2,6 @@
 
 import numpy as np
 import pandas as pd
-import pytest
 
 
 def test_isolation_forest_trains_and_predicts():
