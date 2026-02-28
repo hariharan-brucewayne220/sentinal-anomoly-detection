@@ -100,19 +100,55 @@ curl -X POST http://localhost:8000/predict \
 ---
 
 ## Model Performance
-Evaluated against NAB ground-truth labels (4 known machine failure windows):
 
-| Metric | Score |
-|--------|-------|
-| ROC-AUC | 0.8233 |
-| Precision | 48.2% |
-| Recall | 48.3% |
-| F1 Score | 48.3% |
-| contamination | 0.10 (matches true 9.99% anomaly rate) |
+### Dataset
+- 22,695 total sensor readings
+- 2,268 ground-truth anomalies (9.99% true anomaly rate)
+- 4 known real machine failure windows from NAB labels:
+  - 2013-12-10 06:25 → 2013-12-12 05:35
+  - 2013-12-15 17:50 → 2013-12-17 17:00
+  - 2014-01-27 14:20 → 2014-01-29 13:30
+  - 2014-02-07 14:55 → 2014-02-09 14:05
 
-Two MLflow runs logged:
-- Run 1: contamination=0.05 → F1=0.40 (too few anomalies flagged)
-- Run 2: contamination=0.10 → F1=0.48 (matches true rate, current active model)
+### MLflow Experiment Runs (sentinel-anomaly-detection)
+
+| Run | contamination | Predicted Anomalies | Precision | Recall | F1 | ROC-AUC |
+|-----|--------------|---------------------|-----------|--------|----|---------|
+| Run 1 | 0.05 | 1,135 (5.00%) | 59.7% | 29.9% | 39.9% | 0.8233 |
+| Run 2 | 0.10 | 2,270 (10.00%) | 48.2% | 48.3% | **48.3%** | 0.8233 |
+
+**Active model: Run 2 (contamination=0.10)**
+
+### Final Model Metrics (contamination=0.10)
+
+| Metric | Score | Notes |
+|--------|-------|-------|
+| ROC-AUC | **0.8233** | Strong ranking — model scoring is well-calibrated |
+| Precision | 48.2% | ~1 in 2 alerts is a real anomaly |
+| Recall | 48.3% | Catches ~half of all true failures |
+| F1 Score | 48.3% | Balanced precision/recall |
+
+### Confusion Matrix (Run 2)
+```
+                  Predicted Normal   Predicted Anomaly
+Actual Normal          19,252              1,175   (False Positives)
+Actual Anomaly          1,173              1,095   (True Positives)
+```
+- **True Positives:** 1,095 — real failures correctly caught
+- **False Positives:** 1,175 — false alarms (engineer checks, machine is fine)
+- **False Negatives:** 1,173 — missed failures (machine breaks undetected)
+- **True Negatives:** 19,252 — correctly identified as normal
+
+### Why contamination=0.10 is better than 0.05
+- True anomaly rate in dataset is **9.99%** — so 0.10 matches reality
+- At 0.05: precision=60% but recall=30% — misses 70% of failures (too dangerous)
+- At 0.10: precision=recall=48% — balanced, catches more failures
+- ROC-AUC stays identical (0.8233) — the model's internal scoring didn't change, only the decision threshold
+
+### Why Recall > Precision for this use case
+- **Missing a failure** = machine breaks, production halts, costly repair
+- **False alarm** = engineer checks machine for 5 minutes, finds nothing
+- Cost of missing a failure >> cost of a false alarm → optimize for recall
 
 ---
 
