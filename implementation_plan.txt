@@ -1,0 +1,86 @@
+# Sentinel MLOps System - End-to-End Implementation Plan
+
+This plan details the iterative development of the "Sentinel MLOps System", a production-ready system for automated anomaly detection. The system incorporates ML engineering best practices such as data versioning, experiment tracking, automated CI/CD, and drift monitoring.
+
+## User Review Required
+Please review the proposed iterative phases below. Note that we are assuming a zero-budget strategy using free tiers (GitHub Actions, Hugging Face Spaces, Google Drive/DagsHub). Let me know if you would prefer different tools or hosting providers for any of the phases.
+
+## Proposed Changes / Iterative Phases
+
+### Phase 1: Foundation & Data Layer
+- **Goal**: Set up the project structure, virtual environment, and initial data ingestion.
+- **Tools**: Python, requests/pandas, DVC, DagsHub/Google Drive.
+- **Action Items**:
+  - Initialize Git repository and `venv`.
+  - Create a Python script (`src/data/ingest.py`) to pull sample data (e.g., CSV).
+  - Initialize DVC (`dvc init`) and configure remote storage.
+  - Track the dataset using DVC and commit the `.dvc` files to Git.
+- **Verification**: Ensure the dataset can be pulled successfully using `dvc pull` on a fresh clone.
+
+---
+
+### Phase 2: Model Training & Experiment Tracking
+- **Goal**: Build a baseline model and log training metrics/parameters.
+- **Tools**: PyTorch/scikit-learn, MLflow.
+- **Action Items**:
+  - Write a model training script (`src/models/train.py`). (E.g., Fine-tune a lightweight model like Tiny-YOLO or a tabular algorithm depending on the chosen dataset).
+  - Integrate MLflow to trace hyperparameter tuning, model versions, and performance metrics.
+  - Test logging to a local MLflow registry.
+- **Verification**: Run `train.py` and verify that the run appears in the local `mlflow ui`.
+
+---
+
+### Phase 3: Serving API & Containerization
+- **Goal**: Expose the model as a service and encapsulate the environment.
+- **Tools**: FastAPI, Uvicorn, Joblib/TorchScript, Docker.
+- **Action Items**:
+  - Build a FastAPI service (`src/api/main.py`) with a `/predict` endpoint and a `/health` endpoint.
+  - Serialize the best model from Phase 2 into a loadable format.
+  - Write a `Dockerfile` for the application, ensuring a multi-stage build.
+- **Verification**: Run the Docker container locally and hit the `/health` and `/predict` endpoints via `curl` or Postman.
+
+---
+
+### Phase 4: CI/CD Automation
+- **Goal**: Ensure that code pushes trigger automated tests and builds.
+- **Tools**: GitHub Actions, pytest, linting tools.
+- **Action Items**:
+  - Write unit tests (`tests/test_api.py`, `tests/test_model.py`) using `pytest`.
+  - Add linting tools (flake8/ruff).
+  - Create a GitHub Actions workflow (`.github/workflows/ci.yml`) to run tests, lint code, and build the Docker image upon pull requests / pushes.
+- **Verification**: Push a commit to GitHub and check the repository's Actions tab for a successful pipeline run.
+
+---
+
+### Phase 5: Monitoring, Drift Detection & Dashboard UI
+- **Goal**: Provide an operational view and real-time observability of the system.
+- **Tools**: Streamlit, Evidently AI.
+- **Action Items**:
+  - Integrate `evidently` to calculate data drift and model performance drift on incoming live predictions.
+  - Build a Streamlit dashboard (`src/ui/app.py`) featuring:
+    - System Overview (live predictions chart, alert timelines).
+    - Model Registry View (model versions, dataset hash).
+    - Data Pipeline Monitoring (ingestion status, data version timeline).
+    - CI/CD Status (last built image, API health).
+- **Verification**: Run `streamlit run src/ui/app.py` and manually verify that all UI elements render and display correct mock or live metrics.
+
+---
+
+### Phase 6: Deployment
+- **Goal**: Deploy the system to public cloud for stakeholder access.
+- **Tools**: Hugging Face Spaces / AWS EC2 Free Tier.
+- **Action Items**:
+  - Deploy the Streamlit frontend and FastAPI backend.
+  - Configure environment variables and secrets for production.
+- **Verification**: Visit the public URL and interact with the live prediction system.
+
+## Verification Plan
+
+### Automated Tests
+- Run `pytest tests/` locally and as part of GitHub Actions CI pipeline.
+- Verify API interactions using `curl` against the deployed endpoints.
+
+### Manual Verification
+- Manually run MLflow UI to test tracked experiments.
+- Run the Streamlit Dashboard locally to verify UX components align with the dashboard specifications (Status colors, KPIs, charts).
+- Deploy to Hugging Face / EC2 and conduct an end-to-end test from data ingestion to UI monitoring.

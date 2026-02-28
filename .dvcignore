@@ -1,0 +1,5 @@
+# DVC ignore file — mirrors .gitignore for data files
+venv/
+__pycache__/
+*.pyc
+mlruns/

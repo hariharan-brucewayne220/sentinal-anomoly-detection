@@ -1,0 +1,15 @@
+{
+  "ingested_at": "2026-02-28T18:53:58.079623",
+  "records": 22695,
+  "columns": [
+    "timestamp",
+    "value",
+    "value_rolling_mean",
+    "value_rolling_std",
+    "value_diff"
+  ],
+  "source_url": "https://raw.githubusercontent.com/numenta/NAB/master/data/realKnownCause/machine_temperature_system_failure.csv",
+  "value_min": 2.084721206,
+  "value_max": 108.5105428,
+  "value_mean": 85.92649821068021
+}

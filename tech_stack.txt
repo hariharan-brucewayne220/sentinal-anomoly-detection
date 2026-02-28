@@ -1,0 +1,50 @@
+Sentinel MLOps System
+Technical Stack Specification
+
+1. System Overview
+This document outlines the complete technology stack for The Sentinel MLOps System. The stack is designed to demonstrate production-grade ML engineering practices while remaining fully deployable under zero-budget constraints.
+2. Data Layer
+Data Ingestion:
+• Python
+• requests / httpx
+• pandas
+• apscheduler (optional for scheduling)
+
+Data & Model Versioning:
+• DVC (Data Version Control)
+• GitHub
+• Remote Storage: Google Drive or DagsHub
+3. Model Training Layer
+• PyTorch or TensorFlow
+• scikit-learn (for tabular models)
+• MLflow (experiment tracking)
+• Optional: Weights & Biases (Community Tier)
+4. Model Registry
+• MLflow Model Registry
+• DVC-based version tagging
+• Git tags for release tracking
+5. Serving Layer
+• FastAPI
+• Uvicorn
+• Joblib / TorchScript for serialization
+• Docker (multi-stage build recommended)
+• Optional: Gunicorn + Uvicorn workers
+6. CI/CD Automation
+• GitHub Actions
+• pytest for automated testing
+• flake8 or ruff for linting
+• Docker image build on push
+• Optional auto-deploy to Hugging Face Spaces or EC2
+7. Monitoring & Drift Detection
+• Evidently AI (drift monitoring)
+• PSI / KS statistical tests
+• Python logging / loguru
+• Optional: Prometheus + Grafana
+8. Dashboard UI
+• Streamlit (rapid dashboard development)
+• Optional advanced frontend: React + Tailwind + Recharts
+9. Deployment Strategy (Zero-Budget)
+• Hugging Face Spaces
+• AWS EC2 Free Tier
+• Fly.io or Railway
+10. Stack Summary

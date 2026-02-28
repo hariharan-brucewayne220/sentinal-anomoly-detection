@@ -1,0 +1,75 @@
+Sentinel MLOps System
+Dashboard-First UI/UX Design Specification
+
+1. Design Philosophy
+The Sentinel dashboard adopts a modern, card-based layout inspired by clean SaaS analytics dashboards. The interface emphasizes clarity, operational transparency, and real-time system health visibility.
+Core principles:
+• Modular card components
+• Left-side navigation panel
+• Status-driven color coding (Green, Yellow, Red)
+• Real-time data emphasis
+• Engineer-focused but recruiter-friendly visuals
+
+2. Screen 1: System Overview Dashboard
+Top KPI Cards
+
+[ Live Predictions Chart (Area Chart - 24h Volume) ]
+
+[ Feature Drift Detection Graph ]
+
+[ Alert Timeline Component ]
+
+
+3. Screen 2: Model Registry View
+Purpose: Track experiment versions, deployment state, and performance history.
+
+[ Model Detail Card (Hyperparameters, MLflow Run ID, Dataset Hash) ]
+
+
+4. Screen 3: Deployment & CI/CD View
+Displays automation maturity and deployment transparency.
+CI/CD Status Panel:
+• Last Build: Success
+• Docker Image: sentinel:v1.2
+• Commit Hash
+• Test Coverage
+[ CI Pipeline Status Card ]
+
+API Health Monitoring:
+• API Status: Online
+• Average Latency
+• Requests per Minute
+• Error Rate
+[ API Health Monitoring Card ]
+
+
+5. Screen 4: Data Pipeline Monitoring
+Ingestion Status:
+• Last Sync Time
+• Records Pulled
+• API Status
+[ Ingestion Status Card ]
+
+Dataset Version History:
+• DVC Version Timeline
+• Dataset Size
+• Schema Change Alerts
+[ Data Version Timeline Component ]
+
+
+6. Visual Style Guide
+Color System:
+• Primary Background: Dark Slate
+• Card Background: Soft Contrast Panel
+• Accent Blue for actions
+• Green: Healthy
+• Yellow: Warning
+• Red: Critical
+Typography:
+• Headers: 20–24px bold
+• KPI Numbers: Large display style
+• Body Text: Clean 14px readability
+
+7. Differentiation & Recruiter Impact
+The Sentinel dashboard demonstrates full lifecycle ownership of AI systems: training, deployment, monitoring, and automated retraining triggers. It combines model observability, CI/CD transparency, and data governance into a single unified interface.
+This design showcases operational maturity beyond basic model deployment, highlighting production readiness and system-level engineering rigor.

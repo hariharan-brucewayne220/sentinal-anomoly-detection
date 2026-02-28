@@ -1,0 +1,36 @@
+Product Requirements Document (PRD)
+The Sentinel MLOps System
+1. Product Overview
+The Sentinel is a production-ready, automated monitoring system designed to detect anomalies in real-time data feeds such as traffic cameras or server logs. It provides automated alerts and continuous tracking of model performance to ensure the system remains reliable and does not degrade over time in production.
+2. Target Audience
+• Recruiters and Hiring Managers evaluating software engineering rigor in AI roles.
+• Machine Learning Engineers seeking a reference template for Model-as-a-Service (MaaS).
+3. Core Features
+Automated Data Ingestion: Script to pull data from a public API or GitHub-hosted CSV dataset.
+Versioned Experiments: Integration with MLflow or Weights & Biases for hyperparameter tracking.
+Data and Model Versioning: DVC (Data Version Control) to track datasets without bloating Git.
+API Deployment: FastAPI wrapper containerized with Docker for production readiness.
+Drift Monitoring: Evidently AI report generation to detect performance decay and data drift.
+4. Technical Architecture
+• Data Layer: Public dataset stored in DVC with remote storage (Google Drive or DagsHub).
+• Training Layer: Python training scripts with automated experiment logging to MLflow.
+• CI/CD Layer: GitHub Actions to run pytest and build Docker images on every push.
+• Serving Layer: FastAPI service deployed to Hugging Face Spaces or AWS EC2 (free tier).
+• Monitoring Layer: Streamlit dashboard displaying real-time predictions and drift metrics.
+5. Success Metrics
+• Latency: Model inference under 200ms.
+• Automation: Zero manual steps from commit to deployment.
+• Observability: Public URL where stakeholders can view the live system.
+6. Zero-Budget Strategy
+• Compute: GitHub Actions (free tier) for CI and lightweight training.
+• Hosting: Hugging Face Spaces (free) for API and UI.
+• Storage: DagsHub or Google Drive for DVC remote storage.
+• Experiment Tracking: MLflow (open source) or Weights & Biases community tier.
+7. Implementation Roadmap
+• Phase 1 – ML: Fine-tune a lightweight model such as MobileNet or Tiny-YOLO.
+• Phase 2 – Ops: Configure DVC and MLflow to log every experiment run.
+• Phase 3 – Software: Build FastAPI endpoint and Dockerfile for serving.
+• Phase 4 – CI/CD: Implement GitHub Actions workflow for automated testing and builds.
+• Phase 5 – UI: Develop Streamlit dashboard for visualization and monitoring.
+8. Differentiation and Impact
+The Sentinel demonstrates full lifecycle ownership of an AI system, including monitoring and retraining triggers. By integrating a live monitoring dashboard that highlights model drift and retraining requirements, the project showcases real-world MLOps maturity beyond simple model deployment.
