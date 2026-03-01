@@ -126,7 +126,8 @@ st.markdown(
 )
 
 # ── Constants ─────────────────────────────────────────────────────────────────
-API_BASE = "http://localhost:8000"
+import os
+API_BASE = os.environ.get("API_BASE_URL", "http://localhost:8000")
 MODEL_META_PATH = Path("models/model_meta.json")
 DATA_META_PATH = Path("data/raw/meta.json")
 PROCESSED_DATA_PATH = Path("data/processed/machine_temperature_processed.csv")

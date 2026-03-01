@@ -1,3 +1,14 @@
+---
+title: The Sentinel
+emoji: 🛡️
+colorFrom: blue
+colorTo: indigo
+sdk: streamlit
+sdk_version: 1.35.0
+app_file: src/ui/app.py
+pinned: true
+---
+
 # The Sentinel — MLOps Anomaly Detection System
 
 > A production-ready MLOps system that monitors machine temperature sensor data in real time, detects anomalies using Isolation Forest, serves predictions via a REST API, and monitors for model drift — with full CI/CD automation.
@@ -125,8 +136,8 @@ src/ui/app.py            # Streamlit 4-screen dashboard
 
 ```bash
 # Clone
-git clone https://github.com/hariharan-brucewayne220/sentinel-anomaly-detection.git
-cd sentinel-anomaly-detection
+git clone https://github.com/hariharan-brucewayne220/sentinal-anomoly-detection.git
+cd sentinal-anomoly-detection
 
 # Install
 pip install -r requirements.txt

@@ -1,10 +1,11 @@
+nul
 venv/
 __pycache__/
 *.pyc
 *.pyo
 .env
 mlruns/
-models/*.joblib
+# models/*.joblib  # kept for HF Spaces deployment
 data/raw/*.csv
 data/processed/
 reports/
