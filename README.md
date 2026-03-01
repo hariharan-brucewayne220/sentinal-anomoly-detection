@@ -19,9 +19,9 @@ pinned: true
 
 | Service | Link |
 |---------|------|
-| API Docs | `http://localhost:8000/docs` |
-| Dashboard | `http://localhost:8501` |
-| Docker Hub | `docker pull YOUR_USERNAME/sentinel:latest` |
+| **Live API** | https://sentinel-production-54c4.up.railway.app/docs |
+| **API Health** | https://sentinel-production-54c4.up.railway.app/health |
+| Docker Hub | `docker pull hariharan220/sentinel:latest` |
 
 ---
 
