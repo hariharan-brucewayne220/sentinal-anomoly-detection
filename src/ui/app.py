@@ -12,6 +12,7 @@ Run with:
 """
 
 import json
+import os
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -126,7 +127,6 @@ st.markdown(
 )
 
 # ── Constants ─────────────────────────────────────────────────────────────────
-import os
 API_BASE = os.environ.get("API_BASE_URL", "http://localhost:8000")
 MODEL_META_PATH = Path("models/model_meta.json")
 DATA_META_PATH = Path("data/raw/meta.json")
